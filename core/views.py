@@ -34,3 +34,5 @@ def logout_user(request):
     messages.success(request, "Logged Out")
     #Redirect to login page
     return redirect('login')
+
+
