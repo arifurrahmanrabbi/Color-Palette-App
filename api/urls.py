@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # path('tables/', views.getTableNames),
+    #Returns all palettes that has visibilty set to public
+    path('palettes/public/', views.get_public_palettes),
 
 ]
