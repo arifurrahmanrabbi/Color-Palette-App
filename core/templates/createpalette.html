@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- If not logged in show login page -->
+<h1>Login</h1>
+<form method="POST">
+	{% csrf_token %}
+	<form>
+		<div class="mb-3">
+			<input type="text" class="form-control" name="palette_name" placeholder="Palette Name" required>
+		</div>
+		<div class="mb-3">
+			<input type="text" class="form-control" name="palette_owner" placeholder="Palette Owner" required>
+		</div>
+		<div class="mb-3">
+			<input type="text" class="form-control" name="palette_visibility" placeholder="Palette Visibility" required>
+		</div>
+		<div class="mb-3">
+			<input type="text" class="form-control" name="color_name" placeholder="Color Name" required>
+		</div>
+		<div class="mb-3">
+			<input type="text" class="form-control" name="color_type" placeholder="Color Type" required>
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</form>
+
+{% endblock %}
