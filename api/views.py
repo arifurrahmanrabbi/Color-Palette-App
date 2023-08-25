@@ -31,3 +31,13 @@ def get_public_palettes(request):
         data.append({'palette_id': id, 'dominant': dominant, 'accent': accent})
     return Response(data)
 	
+@api_view(['POST'])
+def add_to_favorite(request):
+    if request.method == 'POST':
+        serializer = Favorite.serialize(request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
+    return redirect('home')
