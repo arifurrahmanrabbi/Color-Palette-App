@@ -47,8 +47,7 @@ def create_color_pallete(request):
     if request.method == 'POST':
         print(request.POST)
         p_name = request.POST['palette_name']
-        print(p_name)
-        p_owner = request.POST['palette_owner']
+        p_owner = request.user.username
         p_visibility = request.POST['palette_visibility']
         c_name = request.POST['color_name']
         c_type = request.POST['color_type']

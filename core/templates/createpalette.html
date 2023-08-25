@@ -11,16 +11,19 @@
 			<input type="text" class="form-control" name="palette_name" placeholder="Palette Name" required>
 		</div>
 		<div class="mb-3">
-			<input type="text" class="form-control" name="palette_owner" placeholder="Palette Owner" required>
-		</div>
-		<div class="mb-3">
-			<input type="text" class="form-control" name="palette_visibility" placeholder="Palette Visibility" required>
+			<select class="form-select" name="palette_visibility">
+				<option value="Public">Public</option>
+				<option value="Private">Private</option>
+			</select>
 		</div>
 		<div class="mb-3">
 			<input type="text" class="form-control" name="color_name" placeholder="Color Name" required>
 		</div>
 		<div class="mb-3">
-			<input type="text" class="form-control" name="color_type" placeholder="Color Type" required>
+			<select class="form-select" name="color_type">
+				<option value="Dominant">Dominant</option>
+				<option value="Accent">Accent</option>
+			</select>
 		</div>
 		<button type="submit" class="btn btn-primary">Submit</button>
 	</form>
