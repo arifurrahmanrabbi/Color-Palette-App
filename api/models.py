@@ -6,24 +6,20 @@ from django.core.exceptions import ValidationError
 class Palette(models.Model):
     name = models.CharField(max_length=50)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    visibilty = models.CharField(max_length=10, choices=[('public', 'Public'), ('private', 'Private')])
+    visibility = models.CharField(max_length=10, choices=[('public', 'Public'), ('private', 'Private')])
+    
     def serialize(self):
         serializer = PaletteSerializer(data=self, many=True)
         if serializer.is_valid():
             return serializer
         return serializer.errors
 
-class PaletteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Palette
-        fields = "__all__"
-    
 class Color(models.Model):
     name = models.CharField(max_length=50)
     type = models.CharField(max_length=10, choices=[('dominant', 'Dominant'), ('accent', 'Accent')])
     palette_id = models.ForeignKey(Palette, on_delete=models.CASCADE)
     
-	#Validate color type.
+	#Validate color type max members.
     def save(self,*args, **kwargs):
         if self.id == None:
             if self.type=='dominant' and Color.objects.filter(palette_id=self.palette_id, type='dominant').count() >= 2:
@@ -37,24 +33,29 @@ class Color(models.Model):
         if serializer.is_valid():
             return serializer
         return serializer.errors
-    
-class ColorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Palette
-        fields = "__all__"
-
 
 class Favorite(models.Model):
-    username = models.ForeignKey(User, on_delete=models.CASCADE)
-    palette_id = models.ForeignKey(Palette, on_delete=models.CASCADE)
+    username = models.CharField(max_length=50)
+    palette_id = models.IntegerField()
     
     def serialize(self):
         serializer = FavoriteSerializer(data=self, many=True)
         if serializer.is_valid():
             return serializer
         return serializer.errors
+
+class ColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Color
+        fields = "__all__"
+
+
+class PaletteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Palette
+        fields = "__all__"
     
 class FavoriteSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Palette
+        model = Favorite
         fields = "__all__"
